@@ -24,6 +24,8 @@ int main(){
     return 0;
 }
 
+// function to merge two sorted arrays without using extra space using gap method
+
 void swap(int *n,int *m){
     int temp=*n;
     *n=*m;
