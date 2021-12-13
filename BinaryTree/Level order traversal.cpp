@@ -1,6 +1,8 @@
 #include<iostream>
 #include<vector>
 #include<queue>
+#include<string>
+#include<sstream>
 using namespace std;
 
 struct Node{
@@ -20,7 +22,42 @@ Node *buildTree(string str){
         return NULL;
     
     vector<string> ip;
-    isstringstream iss(str);
+    istringstream iss(str);
+    for(string str;iss >> str;)
+        ip.push_back(str);
+
+    Node *root=new Node(stoi(ip[0]));
+
+    queue<Node*>q;
+    q.push(root);
+
+    int i=1;
+    while(!q.empty() && i<ip.size()){
+
+        Node *currNode =q.front();
+        q.pop();
+
+        string currVal=ip[i];
+
+        if(currVal != "N"){
+            currNode->left=new Node(stoi(currVal));
+            q.push(currNode->left);
+        }
+
+        i++;
+        if(i>=ip.size())
+            break;
+        currVal=ip[i];
+
+        if(currVal !="N"){
+            currNode->right=new Node(stoi(currVal));
+            q.push(currNode->right);
+        }
+        i++;
+
+    }
+
+    return root;
 
 }
 
@@ -31,7 +68,7 @@ int main(){
     string s;
     getline(cin,s);
     Node *root=buildTree(s);
-    vector<int>res=levelOrderTraversal(root);
+    vector<int>res =levelOrderTraversal(root);
     for(int i: res) cout<<i<<" ";
 
     return 0;
