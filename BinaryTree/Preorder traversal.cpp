@@ -61,7 +61,7 @@ class Solution{
     vector<int>res;
 public:
 
-// Function to traverse a tree inOrderly (recursively)
+// Function to traverse a tree preOrderly (recursively)
 
     vector<int>inOrder(Node *root){
         if(root){
