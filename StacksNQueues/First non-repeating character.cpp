@@ -14,7 +14,7 @@ using namespace std;
 string firstNonRepeating(string a){
 
     int arr[26]={0};
-    queue<int>q;
+    queue<char>q;
     for(int i=0;i<a.length();i++){
         arr[a[i]-'a']++;
         if(arr[a[i]-'a'] == 1)
