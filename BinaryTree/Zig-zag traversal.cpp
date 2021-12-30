@@ -74,6 +74,8 @@ int main(){
 vector <int> zigZagTraversal(Node* root){
 
     vector<int>res;
+    if(!root)
+        return res;
     Node *curr=NULL;
     stack<Node*>currLevel,nextLevel;
     currLevel.push(root);
