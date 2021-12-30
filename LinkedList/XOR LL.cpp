@@ -55,7 +55,8 @@ Node *insert(Node *head,int data){  // inserts value in the beg
         Node *next=XOR(head->npx,NULL);
         head->npx=XOR(newNode,next);
     }
-    head=newNode;
+
+    return newNode;
 }
 
 vector<int>printList(Node *head){
