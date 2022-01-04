@@ -27,5 +27,5 @@ int checkMirrorTree(int n, int e, int A[], int B[]) {
         m1[it.first]=t;
     }
 
-    return m1==m2;
+    return(m1==m2);
 }
