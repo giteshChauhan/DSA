@@ -59,7 +59,7 @@ int main(){
     return 0;
 }
 
-// Funtion to check weather a given binary tree is a sum tree or not.
+// Function to check weather a given binary tree is a sum tree or not.
 
 int traverse(Node*root,bool &ans){
     if(!root || ans == 0)
