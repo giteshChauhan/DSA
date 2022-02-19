@@ -1,6 +1,5 @@
 #include<iostream>
 #include<algorithm>
-#include<unordered_map>
 using namespace std;
 
 // Function to find the size of smallest subarray whose sum is greater than a given value.
@@ -24,16 +23,6 @@ int smallestSubWithSum(int arr[],int n,int x){
 
     return minLen;
 }
-
-
-// 2) To handle negative numbers as well :
-
-
-int smallestSubWithSum2(int arr[],int n,int x){
-
-    
-}
-
 
 int main(){
     int n,x;
