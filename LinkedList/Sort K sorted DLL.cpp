@@ -1,67 +1,121 @@
-#include<iostream>
-#include<string>
-#include<vector>
-#include<sstream>
-#include<queue>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <sstream>
+#include <map>
 using namespace std;
 
-struct Node{
+struct Node
+{
     int data;
     Node *prev;
-    Node*next;
-    Node(int dt){
-        data=dt;
-        prev=NULL;
-        next=NULL;
+    Node *next;
+    Node(int dt)
+    {
+        data = dt;
+        prev = NULL;
+        next = NULL;
     }
 };
 
-Node* sortKSortedDLL(Node*,int);
+Node *sortKSortedDLL(Node *, int);
 
-Node * buildList(string s){
-    if(s.length()==0)
+Node *buildList(string s)
+{
+    if (s.length() == 0)
         return NULL;
 
-    vector<string>ip;
+    vector<string> ip;
     istringstream strm(s);
-    for(string str;strm>>str;)
+    for (string str; strm >> str;)
         ip.push_back(str);
 
-    Node *head=new Node(stoi(ip[0]));
-    Node *tail=head;
-    for(int i=1;i<ip.size();i++){
-        tail->next=new Node(stoi(ip[i]));
-        tail->next->prev=tail;
-        tail=tail->next;
+    Node *head = new Node(stoi(ip[0]));
+    Node *tail = head;
+    for (int i = 1; i < ip.size(); i++)
+    {
+        tail->next = new Node(stoi(ip[i]));
+        tail->next->prev = tail;
+        tail = tail->next;
     }
 
     return head;
 }
 
-void printList(Node *head){
-    while(head){
-        cout<<head->data<<" ";
-        head=head->next;
+void printList(Node *head)
+{
+    while (head)
+    {
+        cout << head->data << " ";
+        head = head->next;
     }
 }
 
-int main(){
+int main()
+{
     string s;
-    getline(cin,s);
-    Node *head=buildList(s);
+    getline(cin, s);
+    Node *head = buildList(s);
     int k;
-    cin>>k;
-    head=sortKSortedDLL(head,k);
+    cin >> k;
+    head = sortKSortedDLL(head, k);
     printList(head);
 
     return 0;
 }
 
-//Given a doubly linked list containing n nodes, where each node is at most k away from its target position in the list.
-// The problem is to sort the given doubly linked list.
+// Given a doubly linked list containing n nodes, where each node is at most k away from its target position in the list.
+//  The problem is to sort the given doubly linked list.
 
 // Function to sort a k sorted doubly linked list
 
+// METHOD - 1 (My method using multimap)
+
+Node *sortKSortedDLL(Node *head, int k)
+{
+    if (!head || !head->next)
+        return head;
+
+    multimap<int, Node *> m;
+
+    Node *curr = head;
+    for (int i = 0; i < k + 1; i++)
+    {
+        m.insert({curr->data, curr});
+        curr = curr->next;
+    }
+
+    Node *prev = NULL;
+    while (m.size() > 0)
+    {
+        auto it = m.begin();
+        Node *small = it->second;
+        small->prev = prev;
+        if (!prev)
+            prev = small;
+        else
+        {
+            prev->next = small;
+            prev = prev->next;
+        }
+        m.erase(it);
+        if (curr)
+        {
+            m.insert({curr->data, curr});
+            curr = curr->next;
+        }
+    }
+    prev->next = NULL;
+
+    Node *newHead = prev;
+    while (newHead->prev)
+        newHead = newHead->prev;
+    return newHead;
+}
+
+// METHOD - 2 (GFG)
+
+/*
 struct compare{
     bool operator ()(Node *p1,Node *p2){
         return(p1->data > p2->data);
@@ -102,3 +156,4 @@ Node *sortKSortedDLL(Node *head,int k){
 
     return newHead;
 }
+*/
